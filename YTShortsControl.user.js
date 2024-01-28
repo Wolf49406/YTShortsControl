@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         YT Shorts Control
-// @version      0.1
+// @version      0.2
 // @description  Youtube Shorts Arrows Control
 // @author       https://github.com/Wolf49406
-// @match        https://www.youtube.com/shorts/*
+// @match        https://www.youtube.com/shorts*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
 // @homepageURL  https://github.com/Wolf49406/YTShortsControl
 // @updateURL    https://github.com/Wolf49406/YTShortsControl/raw/main/YTShortsControl.user.js
