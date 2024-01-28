@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         YT Shorts Control
-// @version      0.2
+// @version      0.3
 // @description  Youtube Shorts Arrows Control
 // @author       https://github.com/Wolf49406
-// @match        https://www.youtube.com/shorts*
+// @match        http*://www.youtube.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
 // @homepageURL  https://github.com/Wolf49406/YTShortsControl
 // @updateURL    https://github.com/Wolf49406/YTShortsControl/raw/main/YTShortsControl.user.js
@@ -14,10 +14,32 @@
 (function() {
     'use strict';
 
+    function GetCurrentVideo() {
+        for (let i = 0; i < 10; i++) {
+            let reel = document.getElementsByClassName("reel-video-in-sequence")[i];
+            if (reel == undefined) {
+                continue;
+            }
+
+            let isActive = reel.hasAttribute("is-active");
+            if (!isActive) {
+                continue;
+            }
+
+            let video = reel.querySelector("#shorts-player > div.html5-video-container > video")
+            if (video == undefined) {
+                continue;
+            }
+
+            return video;
+        }
+
+        return undefined;
+    }
+
     function SetTime(forward) {
-        const video = document.getElementsByClassName("html5-main-video")[0];
-        const movie_player = document.getElementById("movie_player");
-        if (video == undefined || movie_player == undefined) {
+        let video = GetCurrentVideo();
+        if (video == undefined) {
             return;
         }
 
@@ -31,7 +53,20 @@
         }
     }
 
+    function IsValidURL() {
+        const loc = location.href;
+        if (loc == undefined || !loc.includes("/shorts/")) {
+            return false;
+        }
+
+        return true;
+    }
+
     function onKeydown(key) {
+        if (!IsValidURL()) {
+            return;
+        }
+
         if (key.code == "ArrowRight") {
             SetTime(true);
         }
