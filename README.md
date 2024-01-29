@@ -1,5 +1,5 @@
 # YTShortsControl
-Left/Right arrow keys to backward/forward the Youtube Shorts videos by 5 seconds (like a regular video)
+Left/Right arrow keys to backward/forward the Youtube Shorts videos by 3 seconds (like a regular video)
 
 # How To
 - Install [Tampermonkey](https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
