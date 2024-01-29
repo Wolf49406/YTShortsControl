@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         YT Shorts Control
-// @version      0.3
+// @version      0.3.1
 // @description  Youtube Shorts Arrows Control
 // @author       https://github.com/Wolf49406
 // @match        http*://www.youtube.com/*
@@ -14,19 +14,22 @@
 (function() {
     'use strict';
 
-    function GetCurrentVideo() {
-        for (let i = 0; i < 10; i++) {
+    // Change me
+    const ff_time = 3;
+
+    function GetCurrentVideo() { // There is 10 (0-9) DIVs with class="reel-video-in-sequence style-scope ytd-shorts"
+        for (let i = 0; i < 10; i++) { // So we need to iterate throw them
             let reel = document.getElementsByClassName("reel-video-in-sequence")[i];
             if (reel == undefined) {
                 continue;
             }
 
-            let isActive = reel.hasAttribute("is-active");
+            let isActive = reel.hasAttribute("is-active"); // To find active one
             if (!isActive) {
                 continue;
             }
 
-            let video = reel.querySelector("#shorts-player > div.html5-video-container > video")
+            let video = reel.querySelector("#shorts-player > div.html5-video-container > video"); // An actual HTML5-video
             if (video == undefined) {
                 continue;
             }
@@ -34,28 +37,23 @@
             return video;
         }
 
-        return undefined;
+        return undefined; // Nothing has found (just in case)
     }
 
-    function SetTime(forward) {
+    function SetTime(time) {
         let video = GetCurrentVideo();
         if (video == undefined) {
             return;
         }
 
-        let currentTime = video.currentTime;
-
-        if (forward) {
-            video.currentTime = currentTime + 5;
-        }
-        else {
-            video.currentTime = currentTime - 5;
-        }
+        // Pretty much self described
+        let currentTime = video.currentTime; // Default HTML5 Video\Audio API -- https://www.w3schools.com/tags/ref_av_dom.asp
+        video.currentTime = currentTime + time;
     }
 
-    function IsValidURL() {
-        const loc = location.href;
-        if (loc == undefined || !loc.includes("/shorts/")) {
+    function IsValidURL() { // Tampermonkey's @match is such a headache
+        let href = location.href;
+        if (href == undefined || !href.includes("/shorts/")) { // https://www.youtube.com/shorts/XXXX
             return false;
         }
 
@@ -68,10 +66,10 @@
         }
 
         if (key.code == "ArrowRight") {
-            SetTime(true);
+            SetTime(+ ff_time);
         }
         else if (key.code == "ArrowLeft") {
-            SetTime(false);
+            SetTime(- ff_time);
         }
     }
 
