@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         YT Shorts Control
-// @version      0.3.1
+// @version      1.0
 // @description  Youtube Shorts Arrows Control
 // @author       https://github.com/Wolf49406
 // @match        http*://www.youtube.com/*
