@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         YT Shorts Control
-// @version      1.0
+// @version      1.1
 // @description  Youtube Shorts Arrows Control
 // @author       https://github.com/Wolf49406
 // @match        http*://www.youtube.com/*
@@ -20,7 +20,7 @@
     function GetCurrentVideo() { // There is 10 (0-9) DIVs with class="reel-video-in-sequence style-scope ytd-shorts"
         for (let i = 0; i < 10; i++) { // So we need to iterate throw them
             let reel = document.getElementsByClassName("reel-video-in-sequence")[i];
-            if (reel == undefined) {
+            if (!reel) {
                 continue;
             }
 
@@ -30,7 +30,7 @@
             }
 
             let video = reel.querySelector("#shorts-player > div.html5-video-container > video"); // An actual HTML5-video
-            if (video == undefined) {
+            if (!video) {
                 continue;
             }
 
@@ -42,7 +42,7 @@
 
     function SetTime(time) {
         let video = GetCurrentVideo();
-        if (video == undefined) {
+        if (!video) {
             return;
         }
 
@@ -53,7 +53,7 @@
 
     function IsValidURL() { // Tampermonkey's @match is such a headache
         let href = location.href;
-        if (href == undefined || !href.includes("/shorts/")) { // https://www.youtube.com/shorts/XXXX
+        if (!href || !href.includes("/shorts/")) { // https://www.youtube.com/shorts/XXXX
             return false;
         }
 
