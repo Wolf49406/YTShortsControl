@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         YT Shorts Control
-// @version      1.1
+// @version      1.2
 // @description  Youtube Shorts Arrows Control
 // @author       https://github.com/Wolf49406
 // @match        http*://www.youtube.com/*
@@ -17,19 +17,19 @@
     // Change me
     const ff_time = 3;
 
-    function GetCurrentVideo() { // There is 10 (0-9) DIVs with class="reel-video-in-sequence style-scope ytd-shorts"
-        for (let i = 0; i < 10; i++) { // So we need to iterate throw them
-            let reel = document.getElementsByClassName("reel-video-in-sequence")[i];
-            if (!reel) {
-                continue;
-            }
+    function GetCurrentVideo() { // There is a bunch of DIVs with class="reel-video-in-sequence style-scope ytd-shorts";
+        let reels = document.getElementsByClassName("reel-video-in-sequence");
+        if (!reels) {
+            return undefined;
+        }
 
-            let isActive = reel.hasAttribute("is-active"); // To find active one
+        for (let i = 0; i < reels.length; i++) { // So we need to iterate throw them;
+            let isActive = reels[i].hasAttribute("is-active"); // To find active one.
             if (!isActive) {
                 continue;
             }
 
-            let video = reel.querySelector("#shorts-player > div.html5-video-container > video"); // An actual HTML5-video
+            let video = reels[i].querySelector("#shorts-player > div.html5-video-container > video"); // An actual HTML5-video
             if (!video) {
                 continue;
             }
