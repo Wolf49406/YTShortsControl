@@ -15,7 +15,7 @@
     'use strict';
 
     // Change me
-    const ff_time = 3;
+    const ff_time = 1;
 
     function GetCurrentVideo() { // There is a bunch of DIVs with class="reel-video-in-sequence style-scope ytd-shorts";
         let reels = document.getElementsByClassName("reel-video-in-sequence");
