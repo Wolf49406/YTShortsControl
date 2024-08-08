@@ -43,6 +43,7 @@ const g_seekTime = 1;
         video.currentTime = currentTime + time;
     }
 
+    // Tampermonkey's @match is such a headache
     function IsValidURL() {
         return location.href.startsWith(`https://www.youtube.com/shorts/`);
     };
