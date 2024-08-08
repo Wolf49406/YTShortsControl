@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         YT Shorts Control
-// @version      1.3
+// @version      1.3.1
 // @description  Youtube Shorts Arrows Control
 // @author       https://github.com/Wolf49406
 // @match        http*://www.youtube.com/*
@@ -12,7 +12,7 @@
 // ==/UserScript==
 
 // Change me
-const g_seekTime = 1;
+const g_seekTime = 3;
 
 (function() {
     'use strict';
