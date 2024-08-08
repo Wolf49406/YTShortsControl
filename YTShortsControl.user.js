@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         YT Shorts Control
-// @version      1.2
+// @version      1.0.3
 // @description  Youtube Shorts Arrows Control
 // @author       https://github.com/Wolf49406
 // @match        http*://www.youtube.com/*
@@ -11,65 +11,50 @@
 // @grant        none
 // ==/UserScript==
 
+// Change me
+const g_seekTime = 1;
+
 (function() {
     'use strict';
 
-    // Change me
-    const ff_time = 1;
-
-    function GetCurrentVideo() { // There is a bunch of DIVs with class="reel-video-in-sequence style-scope ytd-shorts";
+    // There is a bunch of DIVs with class="reel-video-in-sequence style-scope ytd-shorts";
+    function GetCurrentVideo() {
         let reels = document.getElementsByClassName("reel-video-in-sequence");
-        if (!reels) {
-            return undefined;
-        }
+        if (!reels) { return undefined };
 
         for (let i = 0; i < reels.length; i++) { // So we need to iterate throw them;
             let isActive = reels[i].hasAttribute("is-active"); // To find active one.
-            if (!isActive) {
-                continue;
-            }
+            if (!isActive) { continue };
 
             let video = reels[i].querySelector("#shorts-player > div.html5-video-container > video"); // An actual HTML5-video
-            if (!video) {
-                continue;
-            }
+            if (!video) { continue };
 
             return video;
         }
 
-        return undefined; // Nothing has found (just in case)
+        return undefined;
     }
 
     function SetTime(time) {
         let video = GetCurrentVideo();
-        if (!video) {
-            return;
-        }
+        if (!video) { return };
 
-        // Pretty much self described
         let currentTime = video.currentTime; // Default HTML5 Video\Audio API -- https://www.w3schools.com/tags/ref_av_dom.asp
         video.currentTime = currentTime + time;
     }
 
-    function IsValidURL() { // Tampermonkey's @match is such a headache
-        let href = location.href;
-        if (!href || !href.includes("/shorts/")) { // https://www.youtube.com/shorts/XXXX
-            return false;
-        }
-
-        return true;
-    }
+    function IsValidURL() {
+        return location.href.startsWith(`https://www.youtube.com/shorts/`);
+    };
 
     function onKeydown(key) {
-        if (!IsValidURL()) {
-            return;
-        }
+        if (!IsValidURL()) { return };
 
         if (key.code == "ArrowRight") {
-            SetTime(+ ff_time);
+            SetTime(+g_seekTime);
         }
         else if (key.code == "ArrowLeft") {
-            SetTime(- ff_time);
+            SetTime(-g_seekTime);
         }
     }
 
